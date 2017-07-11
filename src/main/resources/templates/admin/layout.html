@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="ISO-8859-1">
+<title layout:title-pattern="$CONTENT_TITLE - $DECORATOR_TITLE">Khmer Academy</title>
+<style  th:replace="@{/shared/admin/style}"></style>
+
+</head>
+<body class="style">
+
+<div th:replace="@{/shared/admin/header}"> </div>
+<div th:replace="@{/shared/admin/left_size_bar}"> </div>
+<div th:replace="@{/shared/admin/right_size_bar}"> </div>
+<div layout:fragment="content"></div>
+<th:block layout:fragment="script"></th:block>
+</body>
+</html>

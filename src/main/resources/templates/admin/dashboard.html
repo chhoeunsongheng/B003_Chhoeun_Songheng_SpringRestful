@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+ layout:decorator="/admin/layout">
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Dashboard</title>
+</head>
+<body>
+<div layout:fragment="content">
+	<!-- ////////// Page ////////// -->
+<div id="page"  id="earnings_chart" id="visitors_chart">
+	<!-- ////////// Content ////////// -->
+	<div id="content">
+
+		<!-- ////////// Page Title & Breadcrumbs //////////-->
+		<div class="row">
+			<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<h4 th:text="#{userlist}">User List</h4>
+			</div> <!-- /col -->
+		</div> <!-- /row -->
+
+		<div class="row">
+			
+			<!-- ////////// Sale Chart //////////-->
+			<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-12">
+				<div class="card dashboard-widget sale-widget">
+					<div class="card-heading">
+						<div class="top-heading">
+							<h5 th:text="#{user}">USERS</h5>
+							
+						</div> <!-- /top-heading -->
+						
+					</div> <!-- /card-heading -->
+					<div class="card-body p-0">
+						<div id="sale_chart">
+						<div class="row">
+						<div style="width:250px;height:250px; background-color:#b3e6fc; margin-left:50px;">
+							<a th:href="@{/user-role}">
+								<h1 th:text="#{user}" style="text-align:center; margin-top:80px;">USERS</h1>
+						    </a>
+								<h1 style="text-align:center;" th:text="${TOTALUSER}"></h1>
+						</div>
+						<div style="width:250px;height:250px; background-color:#b3e6fc; margin-left:50px;">
+							<a>
+								<h1 th:text="#{male}" style="text-align:center; margin-top:80px;">MALE</h1></a>
+								<h1 style="text-align:center;" th:text="${TOTALMALE}"></h1>
+						</div>
+						<div style="width:250px;height:250px; background-color:#b3e6fc; margin-left:50px;">
+								<h1 th:text="#{female}" style="text-align:center; margin-top:80px;">FEMALE</h1>
+								<h1 style="text-align:center;" th:text="${TOTALFEMALE}"></h1>	
+						</div>
+						</div>
+						</div> <!-- /sale_chart -->
+					</div> <!-- /card-body -->
+				</div> <!-- /card -->
+			</div> <!-- /col -->
+			
+		</div>
+		<div class="row">
+			
+			<!-- ////////// Earnings Widget ////////// -->
+			<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-4">
+				<div id="earnings_chart">
+				</div> 
+			</div> 
+		</div>
+		
+	</div> <!-- /content -->
+</div> <!-- /page -->
+</div>
+
+<th:block layout:fragment="script">
+ <script th:src="@{/resources/js/app.min.js}"></script>
+<!-- Dashboard Scripts -->
+<script th:src="@{/resources/js/dashboard.min.js}"></script>
+<!-- Custom Scripts -->
+<script th:src="@{/resources/js/custom.min.js}"></script>
+</th:block>
+</body>
+</html>
+
+</body>
+</html>

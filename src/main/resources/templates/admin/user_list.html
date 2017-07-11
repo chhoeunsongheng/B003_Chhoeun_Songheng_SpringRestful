@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html xmlns:th="http//www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="/admin/layout">
+
+
+<head>
+<meta charset="ISO-8859-1" />
+<title>Dashboard</title>
+</head>
+<body>
+	<div layout:fragment="content">
+		<!-- ////////// Page ////////// -->
+		<div id="page" id="earnings_chart" id="visitors_chart">
+			<div id="content">
+
+				<!-- ////////// Page Title & Breadcrumbs //////////-->
+				<div class="row">
+					<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<h4 th:text="#{userlist}"></h4>
+						<nav class="breadcrumb">
+							<a class="breadcrumb-item" href="#">Home</a> <a
+								class="breadcrumb-item" href="#">Tables</a> <span
+								class="breadcrumb-item active">Data Tables</span>
+						</nav>
+						<!-- /breadcrumb -->
+						<div class="box-header with-border" style="margin-top: 10px;">
+							<a href="#" class="btn btn-success btn-sm" id="btAdd"><i
+								class="fa fa-fw fa-plus-square-o"></i> Add More</a>
+						</div>
+					</div>
+					<!-- /col -->
+				</div>
+				<!-- /row -->
+
+				<div class="row">
+
+					<!-- ////////// Basic DataTable //////////-->
+					<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-4">
+						<div class="card" id="results">
+							<div class="card-heading">
+								<h5 th:text="#{table}"></h5>
+							</div>
+							<!-- /card-heading -->
+							<div class="card-body">
+
+								<table id="basic_table"
+									class="table_top_content table table-responsive table-striped"
+									th:fragment="userList">
+									<thead>
+										<tr>
+											<th th:text="#{Id}">ID</th>
+											<th th:text="#{Name}">Name</th>
+											<th th:text="#{Gender}">Gender</th>
+											<th th:text="#{Email}">Email</th>
+											<th th:text="#{Userhash}">UUID</th>
+											<th>Remark</th>
+											<th>Status</th>
+											<th​>Created Date</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<!-- /thead -->
+									<tbody>
+										<tr th:each="st:${USER}">
+											<td th:text="${st.id}"></td>
+											<td th:text="${st.username}"></td>
+											<td th:text="${st.gender}"></td>
+											<td th:text="${st.email}"></td>
+											<td th:text="${st.uuid}"></td>
+											<td th:text="${st.remark}"></td>
+											<td th:if="${st.status=='1'}"><button type="button"
+													id="btUpdateStatus"
+													th:attr="data-uuid=${st.uuid},data-status=0"
+													class="btn btn-xs btn-success">
+													<i class="fa fa-fw fa-check"></i>
+												</button></td>
+											<td th:unless="${st.status=='1'}"><button type="button"
+													id="btUpdateStatus"
+													th:attr="data-uuid=${st.uuid},data-status=1"
+													class="btn btn-xs btn-danger">
+													<i class="fa fa-fw fa-times"></i>
+												</button></td>
+											<td
+												th:text="${#dates.format(st.createdDate , 'dd-MM-yyyy' )}"></td>
+											<td><a th:href="@{#view}" id="btDetail"
+												th:attr="data-uuid=${st.uuid}"> <i class="fa fa-eye"></i>
+											</a> <a th:href="@{#edit}" id="btEdit"
+												th:attr="data-uuid=${st.uuid}"> <i
+													class="fa fa-pencil-square-o"></i></a> <a th:href="@{#delete}"
+												th:attr="data-uuid=${st.uuid}" id="btDelete"><i
+													class="fa fa-trash-o"></i></a></td>
+										</tr>
+
+									</tbody>
+									<!-- /tbody -->
+
+								</table>
+								<!-- /table-responsive -->
+							</div>
+							<!-- /card-body -->
+						</div>
+						<!-- /card -->
+					</div>
+					<!-- /col -->
+
+				</div>
+				<!-- /row -->
+				<div id="sale_chart"></div>
+				<!-- /sale_chart -->
+
+				<div class="row">
+
+					<!-- ////////// Earnings Widget ////////// -->
+					<div class="col-xs col-sm-12 col-md-12 col-lg-12 col-xl-4">
+						<div id="earnings_chart"></div>
+					</div>
+				</div>
+				<!-- Category Update Modal  -->
+				<div class="modal fade" id="userEditModal">
+
+					<!-- form start -->
+					<form class="form-horizontal" id="userUpdateForm" action="#"
+						method="PUT">
+
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title">Update User</h4>
+								</div>
+
+								<div class="modal-body">
+
+									<!-- /.box-header -->
+
+									<div class="box-body">
+
+
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">UUID</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="uuid"
+													placeholder="UUID">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="username"
+													placeholder="Name">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-2 control-label">Index</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="index"
+													placeholder="Index">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="status"
+													placeholder="1">
+											</div>
+										</div>
+
+
+									</div>
+									<!-- /.box-body -->
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Update</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+
+					</form>
+
+				</div>
+
+
+				<!-- Category Detail Modal  -->
+				<div class="modal fade" id="userDetailModal">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+								<h4 class="modal-title">User Detail</h4>
+							</div>
+							<div class="modal-body">
+
+
+								<div class="table-responsive">
+									<table class="table">
+										<tbody>
+											<tr>
+												<th style="width: 50%">Name:</th>
+												<td id="username"></td>
+											</tr>
+											<tr>
+												<th>Created Date:</th>
+												<td id="createdDate"></td>
+											</tr>
+
+											<tr>
+												<th>Status:</th>
+												<td id="status"></td>
+											</tr>
+											<tr>
+												<th>Index:</th>
+												<td id="index"></td>
+											</tr>
+											<tr>
+												<th>Remark:</th>
+												<td id="remark"></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default pull-left"
+									data-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Edit</button>
+							</div>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+				<!-- /.modal -->
+
+				<div class="modal fade" id="userAddModal">
+
+					<!-- form start -->
+					<form class="form-horizontal" id="userAddForm" action="#"
+						method="POST">
+
+						<div class="modal-dialog">
+							<div class="modal-content">
+
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									<h4 class="modal-title">Add User</h4>
+								</div>
+
+								<div class="modal-body">
+
+									<!-- /.box-header -->
+
+									<div class="box-body">
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Name</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="name"
+													placeholder="Name">
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-2 control-label">Gender</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="gender"
+													placeholder="Remark">
+											</div>
+										</div>
+
+
+										<div class="form-group">
+											<label for="inputPassword3" class="col-sm-2 control-label">Status</label>
+											<div class="col-sm-10">
+												<input type="text" class="form-control" id="status"
+													placeholder="Index">
+											</div>
+										</div>
+
+
+									</div>
+									<!-- /.box-body -->
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default pull-left"
+										data-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary">Add</button>
+								</div>
+							</div>
+							<!-- /.modal-content -->
+						</div>
+						<!-- /.modal-dialog -->
+
+					</form>
+
+
+				</div>
+				<!-- /.modal -->
+
+			</div>
+			<!-- /content -->
+		</div>
+		<!-- /page -->
+	</div>
+
+	<th:block layout:fragment="script">
+		<script th:src="@{/resources/js/app.min.js}"></script>
+		<!-- Dashboard Scripts -->
+		<script th:src="@{/resources/js/dashboard.min.js}"></script>
+		<!-- Custom Scripts -->
+		<script th:src="@{/resources/js/custom.min.js}"></script>
+		<script th:src="@{/resources/khmeracademy/js/user.js}"></script>
+		<script th:src="@{/resources/khmeracademy/js/jquery.tmpl.min.js}"></script>
+		<script th:src="@{/resources/khmeracademy/js/jquery.bootpag.min.js}"></script>
+	</th:block>
+</body>
+</html>
